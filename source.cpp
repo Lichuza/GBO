@@ -21,16 +21,10 @@ int main()
 		vector<int>idDev;
 		createState cS;
 
-		//Êîëè÷åñòâî óñòðîéñòâ
-		int countDevice = rand()%4 + 1;
 		
-		//Êîëè÷åñòâî ip
+		int countDevice = rand()%4 + 1;
 		int countIp = rand() % 5 + 1;
 
-		//Äëÿ âåêòîðà ïðèçíàêîâ
-		countDeviceV.push_back(countDevice);
-
-	
 		bool flagImei = true;
 		bool flagIp = true;
 
