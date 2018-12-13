@@ -21,13 +21,13 @@ int main()
 		vector<int>idDev;
 		createState cS;
 
-		//Количество устройств
+		//ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГіГ±ГІГ°Г®Г©Г±ГІГў
 		int countDevice = rand()%4 + 1;
 		
-		//Количество ip
+		//ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ip
 		int countIp = rand() % 5 + 1;
 
-		//Для вектора признаков
+		//Г„Г«Гї ГўГҐГЄГІГ®Г°Г  ГЇГ°ГЁГ§Г­Г ГЄГ®Гў
 		countDeviceV.push_back(countDevice);
 
 	
@@ -47,10 +47,10 @@ int main()
 		for (int j = 0; j < tempCountTr; j++)
 		{
 			transaction t;
-			//Выбор id устройства
+			
 			int idDevice = rand() % countDevice + 0;
 			
-			//Выбор типа транзакции
+			
 			int idTr = rand() % 5 + 0;
 
 			t.id = i;
@@ -147,7 +147,7 @@ int main()
 	}
 
 	ofstream out("C:/transaction/test1.csv");
-	out << "Время,"<<"IDclient," << "sourceAccount," << "DBOID," << "documentNumber," << "sessionId," <<"type,"<<"accountBalance,"<<"accountLimit,"<<
+	out << "time,"<<"IDclient," << "sourceAccount," << "DBOID," << "documentNumber," << "sessionId," <<"type,"<<"accountBalance,"<<"accountLimit,"<<
 		"transactionAmount,"<<"commissionAmount," << "paymentReceiver," << "IDDevice," << "IMEI," <<
 		"IMSI," << "IP," << "MAC," << "OS," <<"anomalTransfer," << "NewPayee," <<"regular,"<<"gray,"
 		<<"serviceCode,"<<"nameTransaction,"<<"nameService," <<"Class"<<endl;
@@ -255,7 +255,7 @@ int main()
 	}
 
 	ofstream outFrod("C:/transaction/FROD.csv");
-	outFrod << "Время," << "IDclient," << "sourceAccount," << "DBOID," << "documentNumber," << "sessionId," << "type," << "accountBalance," << "accountLimit," <<
+	outFrod << "Г‚Г°ГҐГ¬Гї," << "IDclient," << "sourceAccount," << "DBOID," << "documentNumber," << "sessionId," << "type," << "accountBalance," << "accountLimit," <<
 		"transactionAmount," << "commissionAmount," << "paymentReceiver," << "IDDevice," << "IMEI," <<
 		"IMSI," << "IP," << "MAC," << "OS," << "anomalTransfer," << "NewPayee," << "regular," << "gray,"
 		<< "serviceCode," << "nameTransaction," << "nameService," << "Class" << endl;
@@ -300,7 +300,7 @@ int main()
 	outFrod.close();
 
 
-	//Графики
+	
 	createState cS;
 	ofstream outPlot("C:/transaction/pltType.txt");
 	int j0 = 0, j1 = 0, j2 = 0, j3 = 0, j4 = 0;
@@ -331,7 +331,7 @@ int main()
 	gnu1.command("set xtic rotate by - 10 scale 0");
 	gnu1.command("set bmargin 3");
 	gnu1.command("unset key");
-	gnu1.command("set title 'Отношение типов транзакций' font 'Times-Roman, 18'");
+	gnu1.command("set title 'ГЋГІГ­Г®ГёГҐГ­ГЁГҐ ГІГЁГЇГ®Гў ГІГ°Г Г­Г§Г ГЄГ¶ГЁГ©' font 'Times-Roman, 18'");
 	gnu1.command("plot 'C:/transaction/pltType.txt' using 2:xtic(1) lc rgbcolor 'blue'");
 
 														
@@ -356,135 +356,9 @@ int main()
 	gnu2.command("set xtic rotate by - 10 scale 0");
 	gnu2.command("set bmargin 3");
 	gnu2.command("unset key");
-	gnu2.command("set title 'Отношение количества нормальных транзакций к фродовым' font 'Times-Roman, 18'");
+	gnu2.command("set title 'ГЋГІГ­Г®ГёГҐГ­ГЁГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ  Г­Г®Г°Г¬Г Г«ГјГ­Г»Гµ ГІГ°Г Г­Г§Г ГЄГ¶ГЁГ© ГЄ ГґГ°Г®Г¤Г®ГўГ»Г¬' font 'Times-Roman, 18'");
 	gnu2.command("plot 'C:/transaction/FrodLegal.txt' using 2:xtic(1) lc rgbcolor 'blue'");
-/*
-	//Вывод признаков в txt
-	ofstream out1("C:/transaction/FV.txt");
 
-	int tempId = 0;
-	for (int i = 0; i < Data.size(); i++)
-	{
-		createState cS;
-		if (tempId == Data[i].id) 
-		{
-			out1 << "in: ";
-
-			out1 << (double) Data[i].id / countUsers << " ";
-
-			for (int j = 0; j < 5; j++)
-			{
-				if (cS.getTypeTr(j) == Data[i].type) 
-				{
-					out1 << (double)j / 4 << " ";
-					break;
-				} 
-			}
-
-			out1 << Data[i].accountBalance/100000 << " ";
-			out1 << Data[i].accountLimit/10816 << " ";
-			out1 << Data[i].transactionAmount/10816 << " ";//пока так
-			out1 << Data[i].commissionAmount << " ";
-
-			if(Data[i].regular=="true") out1 << "1" << " ";
-			else out1 << "0" << " ";
-
-			if(Data[i].gray=="true") out1 << "1" << " ";
-			else out1 << "0" << " ";
-
-			if (Data[i].anomalTransfer == "true") out1 << "1" << " ";
-			else out1 << "0" << " ";
-			
-			out1 << (double)Data[i].clientDevice.id / countDeviceV[tempId] << " ";
-			//out1 << Data[i].clientDevice.imei << " ";
-			//out1 << Data[i].clientDevice.imsi << " ";
-			//out1 << Data[i].clientDevice.ip << " ";
-			//out1 << Data[i].clientDevice.mac << " ";
-			//out1 << Data[i].clientDevice.name << " ";
-
-			for (int j = 0; j < 5; j++)
-			{
-				if (cS.getOs(j) == Data[i].clientDevice.os)
-				{
-					out1 << (double)j / 4 << " ";
-					break;
-				}
-			}
-
-			out1 << endl;
-			out1 << "out: 0"<<endl;
-		
-		}
-		else
-		{
-			tempId++;
-			i--;
-		}
-		
-	}
-	out1.close();
-
-	//Вывод признаков в csv
-	ofstream out2("C:/transaction/FV.csv");
-
-	tempId = 0;
-	for (int i = 0; i < Data.size(); i++)
-	{
-		createState cS;
-		if (tempId == Data[i].id)
-		{
-			out2 << (double)Data[i].id / countUsers << ",";
-
-			for (int j = 0; j < 5; j++)
-			{
-				if (cS.getTypeTr(j) == Data[i].type)
-				{
-					out2 << (double)j / 4 << ",";
-					break;
-				}
-			}
-
-			out2 << Data[i].accountBalance / 100000 << ",";
-			out2 << Data[i].accountLimit / 10816 << ",";
-			out2 << Data[i].transactionAmount / 10816 << ",";//пока так
-			out2 << Data[i].commissionAmount << ",";
-
-			if (Data[i].regular == "true") out2 << "1" << ",";
-			else out2 << "0" << ",";
-
-			if (Data[i].gray == "true") out2 << "1" << " ";
-			else out2 << "0" << " ";
-
-			if (Data[i].anomalTransfer == "true") out1 << "1" << " ";
-			else out1 << "0" << " ";
-
-			out2 << (double)Data[i].clientDevice.id / countDeviceV[tempId] << ",";
-			//out1 << Data[i].clientDevice.imei << " ";
-			//out1 << Data[i].clientDevice.imsi << " ";
-			//out1 << Data[i].clientDevice.ip << " ";
-			//out1 << Data[i].clientDevice.mac << " ";
-			//out1 << Data[i].clientDevice.name << " ";
-
-			for (int j = 0; j < 5; j++)
-			{
-				if (cS.getOs(j) == Data[i].clientDevice.os)
-				{
-					out2 << (double)j / 4 << ",";
-					break;
-				}
-			}
-
-			out2 << endl;
-		}
-		else
-		{
-			tempId++;
-			i--;
-		}
-	}
-	out2.close();*/
-
-	
 	system("PAUSE");
 	return 0;
 }
