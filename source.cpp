@@ -13,7 +13,6 @@ int main()
 	srand(time(NULL));
 	
 	int countUsers = 100;
-	vector<int>countDeviceV;
 
 	for (int i = 0; i < countUsers; i++)
 	{
